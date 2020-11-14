@@ -47,6 +47,36 @@ namespace AddressBookProblem.ADONET
             {
                 System.Console.WriteLine(e.Message);
             }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+        public bool UpdateContact()
+        {
+            connection = new SqlConnection(connectionString);
+            try
+            {
+                using (this.connection)
+                {
+                    string query = @"update AddressBookTable set address='Newark' where firstName='Kirk';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    if (result != 0)
+                        return true;
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+            return false;
         }
     }
 }

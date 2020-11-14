@@ -33,3 +33,12 @@ select * from AddressBookTable
 --updated
 
 
+alter table AddressBookTable add bookName varchar(20), bookType varchar(20);
+
+update AddressBookTable set bookName='Book1', bookType='Family' where firstName='James' or firstName='Kirk';
+update AddressBookTable set bookName='Book2', bookType='Friends' where firstName='Lars' or firstName='Steven';
+update AddressBookTable set bookName='Book3', bookType='Job' where firstName='Cliff' or firstName='Freddie';
+select * from AddressBookTable
+
+update AddressBookTable set address='Newark' where firstName='Kirk';
+select * from AddressBookTable

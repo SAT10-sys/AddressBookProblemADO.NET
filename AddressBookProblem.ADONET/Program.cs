@@ -8,7 +8,9 @@ namespace AddressBookProblem.ADONET
         {
             Console.WriteLine("Welcome to Address Book Problem using .ADONET ");
             AddressRepo addressRepo = new AddressRepo();
-            addressRepo.RetrieveContactsFromDataBase();
+            //addressRepo.RetrieveContactsFromDataBase();
+            addressRepo.UpdateContact();
+            Console.WriteLine("Contact Updated");
         }
     }
 }
