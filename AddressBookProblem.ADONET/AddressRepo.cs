@@ -9,22 +9,22 @@ namespace AddressBookProblem.ADONET
     {
         public static string connectionString = @"Data Source=.;Initial Catalog=AddressBookADONET;Integrated Security=True";
         SqlConnection connection;
-        public void RetrieveContactsFromDataBase()
+        public bool RetrieveContactsFromDataBase()
         {
             connection = new SqlConnection(connectionString);
             try
-            {
-                AddressBookModel addressBookModel = new AddressBookModel();
-                using (this.connection)
+            {                
+                using (connection)
                 {
                     string query = @"select * from AddressBookTable;";
-                    SqlCommand cmd = new SqlCommand(query, this.connection);
-                    this.connection.Open();
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     if(dr.HasRows)
                     {
                         while(dr.Read())
                         {
+                            AddressBookModel addressBookModel = new AddressBookModel();
                             addressBookModel.FirstName = dr.GetString(0);
                             addressBookModel.LastName = dr.GetString(1);
                             addressBookModel.Address= dr.GetString(2);
@@ -41,27 +41,29 @@ namespace AddressBookProblem.ADONET
                     }
                     else
                         System.Console.WriteLine("No data found");
+                    return true;
                 }
             }
             catch(Exception e)
             {
-                System.Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
             }
             finally
             {
-                this.connection.Close();
+                connection.Close();
             }
+            return false;
         }
-        public bool UpdateContact()
+        public bool UpdateContact(AddressBookModel addressBookModel)
         {
             connection = new SqlConnection(connectionString);
             try
             {
-                using (this.connection)
+                using (connection)
                 {
-                    string query = @"update AddressBookTable set address='Newark' where firstName='Kirk';";
-                    SqlCommand cmd = new SqlCommand(query, this.connection);
-                    this.connection.Open();
+                    string query = @"update Contact set PhoneNumber='" + addressBookModel.PhoneNumber + "', EmailId= '" + addressBookModel.EmailId + "' where FirstName= '" + addressBookModel.FirstName + "' and LastName= '" + addressBookModel.LastName + "'";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
                     var result = cmd.ExecuteNonQuery();
                     if (result != 0)
                         return true;
@@ -74,7 +76,7 @@ namespace AddressBookProblem.ADONET
             }
             finally
             {
-                this.connection.Close();
+                connection.Close();
             }
             return false;
         }

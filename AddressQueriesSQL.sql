@@ -42,3 +42,62 @@ select * from AddressBookTable
 
 update AddressBookTable set address='Newark' where firstName='Kirk';
 select * from AddressBookTable
+
+/* ERDIAGRAM */
+create table Contact
+(
+CId int identity(1,1) not null primary key,
+FirstName varchar(30) not null,
+LastName varchar(30) not null,
+PhoneNumber varchar(10) not null,
+EmailId varchar(50) not null,
+);
+insert into Contact values
+('James','Hetfield','1111111111','jhetfield@gmail.com'),
+('Lars','Ulrich','2222222222','lulrich@yahoo.com'),
+('Cliff','Burton','3333333333','cburton@gmail.com'),
+('Kirk','Hammet','4444444444','khammet@yahoo.com'),
+('Steven','Wilson','5555555555','swilson@gmail.com'),
+('Freddie','Mercury','6666666666','fmercury@yahoo.com');
+select * from Contact
+
+create table Type
+(
+CId int foreign key references Contact(CId) on delete cascade,
+CName varchar(20) not null,
+CType varchar(20) not null,
+);
+insert into Type values
+(1,'Book1','Family'),
+(2,'Book3','Job'),
+(3,'Book3','Job'),
+(4,'Book2','Friends'),
+(5,'Book1','Family'),
+(6,'Book2','Friends');
+select * from Type
+
+
+
+create table Address
+(
+CId int foreign key references Contact(CId) on delete cascade,
+Address varchar(100) not null,
+City varchar(30) not null,
+State varchar(30) not null,
+ZipCode varchar(6) not null,
+);
+insert into Address values
+(1,'DownTown','San Francisco','California','111111'),
+(2,'San Jose','San Francisco','California','222222'),
+(3,'Manhattan','New York City','New York','333333'),
+(4,'Newark','New York City','New York','444444'),
+(5,'Rajarhat','Kolkata','West Bengal','555555'),
+(6,'Esplanade','Kolkata','West Bengal','666666');
+select * from Address
+
+select * from (Contact contact inner join Type type on (contact.CId=type.CId)) inner join Address address on address.CId=contact.CId;
+
+
+
+
+
