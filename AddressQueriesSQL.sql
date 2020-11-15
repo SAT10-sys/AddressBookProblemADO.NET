@@ -97,7 +97,12 @@ select * from Address
 
 select * from (Contact contact inner join Type type on (contact.CId=type.CId)) inner join Address address on address.CId=contact.CId;
 
-
-
-
+alter table Contact add DateAdded datetime
+update Contact set DateAdded='2020-03-12' where CId=1;
+update Contact set DateAdded='2018-11-12' where CId=2;
+update Contact set DateAdded='2019-07-12' where CId=3;
+update Contact set DateAdded='2019-08-15' where CId=4;
+update Contact set DateAdded='2019-08-19' where CId=5;
+update Contact set DateAdded='2020-09-18' where CId=6;
+select * from Contact
 

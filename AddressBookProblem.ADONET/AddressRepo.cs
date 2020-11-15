@@ -80,5 +80,49 @@ namespace AddressBookProblem.ADONET
             }
             return false;
         }
+        public void GetContactsInDateRange(string startDate)
+        {
+            AddressBookModel addressBookModel = new AddressBookModel();
+            connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    string query = @"select * from Contact where DateAdded between '" + startDate + "' and GETDATE();";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if(dr.HasRows)
+                    {
+                        while(dr.Read())
+                        {
+                            addressBookModel.FirstName = dr.GetString(0);
+                            addressBookModel.LastName = dr.GetString(1);
+                            addressBookModel.Address = dr.GetString(2);
+                            addressBookModel.City = dr.GetString(3);
+                            addressBookModel.State = dr.GetString(4);
+                            addressBookModel.ZipCode = dr.GetString(5);
+                            addressBookModel.PhoneNumber = dr.GetString(6);
+                            addressBookModel.EmailId = dr.GetString(7);
+                            addressBookModel.BookName = dr.GetString(8);
+                            addressBookModel.BookType = dr.GetString(9);
+                            addressBookModel.DateAdded = Convert.ToDateTime(dr.GetString(10));
+                            Console.WriteLine(addressBookModel.FirstName + "\t" + addressBookModel.LastName + "\t" + addressBookModel.Address + "\t" + addressBookModel.City + "\t" + addressBookModel.State + "\t" + addressBookModel.ZipCode + "\t" + addressBookModel.PhoneNumber + "\t" + addressBookModel.EmailId + "\t" + addressBookModel.BookName + "\t" + addressBookModel.BookType+"\t"+addressBookModel.DateAdded);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                        Console.WriteLine("No contacts found");
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }    
+        }
     }
 }

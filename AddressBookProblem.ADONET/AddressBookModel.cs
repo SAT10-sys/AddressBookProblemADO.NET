@@ -16,5 +16,6 @@ namespace AddressBookProblem.ADONET
         public string EmailId { get; set; }
         public string BookName { get; set; }
         public string BookType { get; set; }
+        public DateTime DateAdded { get; set; }
     }
 }
