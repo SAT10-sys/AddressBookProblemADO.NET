@@ -13,29 +13,29 @@ namespace AddressBookProblem.ADONET
         {
             connection = new SqlConnection(connectionString);
             try
-            {                
+            {
                 using (connection)
                 {
                     string query = @"select * from AddressBookTable;";
                     SqlCommand cmd = new SqlCommand(query, connection);
                     connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
-                    if(dr.HasRows)
+                    if (dr.HasRows)
                     {
-                        while(dr.Read())
+                        while (dr.Read())
                         {
                             AddressBookModel addressBookModel = new AddressBookModel();
                             addressBookModel.FirstName = dr.GetString(0);
                             addressBookModel.LastName = dr.GetString(1);
-                            addressBookModel.Address= dr.GetString(2);
-                            addressBookModel.City= dr.GetString(3);
-                            addressBookModel.State= dr.GetString(4);
-                            addressBookModel.ZipCode= dr.GetString(5);
-                            addressBookModel.PhoneNumber= dr.GetString(6);
-                            addressBookModel.EmailId= dr.GetString(7);
-                            addressBookModel.BookName= dr.GetString(8);
-                            addressBookModel.BookType= dr.GetString(9);
-                            Console.WriteLine(addressBookModel.FirstName+"\t"+addressBookModel.LastName+"\t"+addressBookModel.Address+"\t"+addressBookModel.City+"\t"+addressBookModel.State+"\t"+addressBookModel.ZipCode+"\t"+addressBookModel.PhoneNumber+"\t"+addressBookModel.EmailId+"\t"+addressBookModel.BookName+"\t"+addressBookModel.BookType);
+                            addressBookModel.Address = dr.GetString(2);
+                            addressBookModel.City = dr.GetString(3);
+                            addressBookModel.State = dr.GetString(4);
+                            addressBookModel.ZipCode = dr.GetString(5);
+                            addressBookModel.PhoneNumber = dr.GetString(6);
+                            addressBookModel.EmailId = dr.GetString(7);
+                            addressBookModel.BookName = dr.GetString(8);
+                            addressBookModel.BookType = dr.GetString(9);
+                            Console.WriteLine(addressBookModel.FirstName + "\t" + addressBookModel.LastName + "\t" + addressBookModel.Address + "\t" + addressBookModel.City + "\t" + addressBookModel.State + "\t" + addressBookModel.ZipCode + "\t" + addressBookModel.PhoneNumber + "\t" + addressBookModel.EmailId + "\t" + addressBookModel.BookName + "\t" + addressBookModel.BookType);
                             Console.WriteLine("\n");
                         }
                     }
@@ -44,7 +44,7 @@ namespace AddressBookProblem.ADONET
                     return true;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -70,7 +70,7 @@ namespace AddressBookProblem.ADONET
                     return false;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -92,9 +92,9 @@ namespace AddressBookProblem.ADONET
                     SqlCommand cmd = new SqlCommand(query, connection);
                     connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
-                    if(dr.HasRows)
+                    if (dr.HasRows)
                     {
-                        while(dr.Read())
+                        while (dr.Read())
                         {
                             addressBookModel.FirstName = dr.GetString(0);
                             addressBookModel.LastName = dr.GetString(1);
@@ -107,7 +107,7 @@ namespace AddressBookProblem.ADONET
                             addressBookModel.BookName = dr.GetString(8);
                             addressBookModel.BookType = dr.GetString(9);
                             addressBookModel.DateAdded = Convert.ToDateTime(dr.GetString(10));
-                            Console.WriteLine(addressBookModel.FirstName + "\t" + addressBookModel.LastName + "\t" + addressBookModel.Address + "\t" + addressBookModel.City + "\t" + addressBookModel.State + "\t" + addressBookModel.ZipCode + "\t" + addressBookModel.PhoneNumber + "\t" + addressBookModel.EmailId + "\t" + addressBookModel.BookName + "\t" + addressBookModel.BookType+"\t"+addressBookModel.DateAdded);
+                            Console.WriteLine(addressBookModel.FirstName + "\t" + addressBookModel.LastName + "\t" + addressBookModel.Address + "\t" + addressBookModel.City + "\t" + addressBookModel.State + "\t" + addressBookModel.ZipCode + "\t" + addressBookModel.PhoneNumber + "\t" + addressBookModel.EmailId + "\t" + addressBookModel.BookName + "\t" + addressBookModel.BookType + "\t" + addressBookModel.DateAdded);
                             Console.WriteLine("\n");
                         }
                     }
@@ -115,14 +115,48 @@ namespace AddressBookProblem.ADONET
                         Console.WriteLine("No contacts found");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
             finally
             {
                 connection.Close();
-            }    
+            }
+        }
+        public void GetCountByCityOrState()
+        {
+            connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    SqlCommand cmd = new SqlCommand("GetCountByCityState", connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            string state = dr.GetString(0);
+                            string city = dr.GetString(1);
+                            int count = dr.GetInt32(2);
+                            Console.WriteLine(state + "\t" + city + "\t" + count);
+                        }
+                    }
+                    else
+                        Console.WriteLine("No data");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
-}
+}           

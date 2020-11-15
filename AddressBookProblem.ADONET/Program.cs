@@ -17,10 +17,11 @@ namespace AddressBookProblem.ADONET
             addressBookModel.PhoneNumber = Console.ReadLine();
             addressBookModel.EmailId = Console.ReadLine();
             addressRepo.UpdateContact(addressBookModel);
-            Console.WriteLine("Contact Updated");*/
+            Console.WriteLine("Contact Updated");
             Console.WriteLine("Enter startdate");
             string startDate = Console.ReadLine();
-            addressRepo.GetContactsInDateRange(startDate);
+            addressRepo.GetContactsInDateRange(startDate);*/
+            addressRepo.GetCountByCityOrState();
         }
     }
 }

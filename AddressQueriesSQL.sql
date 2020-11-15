@@ -105,4 +105,6 @@ update Contact set DateAdded='2019-08-15' where CId=4;
 update Contact set DateAdded='2019-08-19' where CId=5;
 update Contact set DateAdded='2020-09-18' where CId=6;
 select * from Contact
+select * from Contact where DateAdded between '2018-12-31' and GETDATE();
+
 
