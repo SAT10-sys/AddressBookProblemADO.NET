@@ -180,9 +180,9 @@ namespace AddressBookProblem.ADONET
                     connection.Open();
                     var result = command.ExecuteNonQuery();
                     if (result != 0)
-                        return true;
-                    else 
-                        return false;
+                    { return true; }
+                    else
+                    { return false; }
                 }
             }
             catch(Exception e)
