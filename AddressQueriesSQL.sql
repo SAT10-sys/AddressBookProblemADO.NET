@@ -108,3 +108,36 @@ select * from Contact
 select * from Contact where DateAdded between '2018-12-31' and GETDATE();
 
 
+go
+create procedure SpAddContactDetails
+(
+@CId int,
+@FirstName varchar(30),
+@LastName varchar(30),
+@PhoneNumber varchar(10),
+@Email varchar(50),
+@DateAdded DateTime,
+@BName varchar(20),
+@CType varchar(20),
+@Address varchar(100),
+@City varchar(30),
+@State varchar(30),
+@Zipcode varchar(6)
+)
+as 
+begin
+insert into Contact values
+(
+@CId, @FirstName, @LastName, @PhoneNumber, @Email, @DateAdded
+);
+insert into Type values
+(
+@@IDENTITY, @CType
+);
+declare @CustId int 
+select @CustId =CId from Contact where EmailId=@Email
+insert into Address values
+(
+@CustId, @Address, @City, @State, Zipcode
+);
+end

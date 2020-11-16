@@ -20,8 +20,22 @@ namespace AddressBookProblem.ADONET
             Console.WriteLine("Contact Updated");
             Console.WriteLine("Enter startdate");
             string startDate = Console.ReadLine();
-            addressRepo.GetContactsInDateRange(startDate);*/
-            addressRepo.GetCountByCityOrState();
+            addressRepo.GetContactsInDateRange(startDate);
+            addressRepo.GetCountByCityOrState();*/
+            Console.WriteLine("Enter the following information one by one");
+            Console.WriteLine("FIRST NAME\nLAST NAME\nADDRESS\nCITY\nSTATE\nZIPCODE\nPHONE NUMBER\nEMAIL ID\nTYPE OF CONTACT\nDATE ADDED");
+            addressBookModel.FirstName = Console.ReadLine();
+            addressBookModel.LastName = Console.ReadLine();
+            addressBookModel.Address= Console.ReadLine();
+            addressBookModel.City= Console.ReadLine();
+            addressBookModel.State= Console.ReadLine();
+            addressBookModel.ZipCode= Console.ReadLine();
+            addressBookModel.PhoneNumber= Console.ReadLine();
+            addressBookModel.EmailId= Console.ReadLine();
+            addressBookModel.BookType= Console.ReadLine();
+            addressBookModel.DateAdded = Convert.ToDateTime(Console.ReadLine());
+            addressRepo.AddContact(addressBookModel);
+            Console.WriteLine("Contact added");
         }
     }
 }

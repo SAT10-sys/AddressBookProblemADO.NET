@@ -158,5 +158,42 @@ namespace AddressBookProblem.ADONET
                 connection.Close();
             }
         }
+        public bool AddContact(AddressBookModel addressBookModel)
+        {
+            connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    SqlCommand command = new SqlCommand("SpAddContactDetails", connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", addressBookModel.FirstName);
+                    command.Parameters.AddWithValue("@LastName", addressBookModel.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", addressBookModel.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", addressBookModel.EmailId);
+                    command.Parameters.AddWithValue("@DateAdded", addressBookModel.DateAdded);
+                    command.Parameters.AddWithValue("@Contact_Type", addressBookModel.BookType);
+                    command.Parameters.AddWithValue("@Address", addressBookModel.Address);
+                    command.Parameters.AddWithValue("@City", addressBookModel.City);
+                    command.Parameters.AddWithValue("@State", addressBookModel.State);
+                    command.Parameters.AddWithValue("@Zipcode", addressBookModel.ZipCode);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+                        return true;
+                    else 
+                        return false;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return false;
+        }
     }
 }           
