@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace AddressBookProblem.ADONET
 {
@@ -194,6 +195,20 @@ namespace AddressBookProblem.ADONET
                 connection.Close();
             }
             return false;
+        }
+        public int AddMultipleContacts(List<AddressBookModel> contactList)
+        {
+            int contactsAdded = 0;
+            contactList.ForEach(contact =>
+            {
+                contactsAdded++;
+                Task thread = new Task(() =>
+                  {
+                      bool isAdded = AddContact(contact);
+                  });
+                thread.Start();
+            });
+            return contactsAdded;
         }
     }
 }           
