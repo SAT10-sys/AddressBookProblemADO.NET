@@ -73,5 +73,29 @@ namespace RestSharpTest
                 Console.WriteLine(response.Content);
             }
         }
+        [TestMethod]
+        public void TestMethod3()
+        {
+            RestRequest request = new RestRequest("/contacts/6", Method.PUT);
+            JsonObject jsonObj = new JsonObject();
+            jsonObj.Add("firstname", "Toby");
+            jsonObj.Add("lastname", "Blair");
+            jsonObj.Add("phoneNo", "7858070934");
+            jsonObj.Add("address", "Manhattan");
+            jsonObj.Add("city", "New York City");
+            jsonObj.Add("state", "New York");
+            jsonObj.Add("zip", "535678");
+            jsonObj.Add("email", "tblair@rediffmail.com");
+            //Added parameters to the request object such as the content-type and attaching the jsonObj with the request
+            request.AddParameter("application/json", jsonObj, ParameterType.RequestBody); 
+            IRestResponse response = client.Execute(request);       
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Contacts contact = JsonConvert.DeserializeObject<Contacts>(response.Content);
+            Assert.AreEqual("Toby", contact.FirstName);
+            Assert.AreEqual("Blair", contact.LastName);
+            Assert.AreEqual("7858070934", contact.PhoneNo);
+            Assert.AreEqual("535678", contact.Zip);
+            Console.WriteLine(response.Content);
+        }
     }
 }
