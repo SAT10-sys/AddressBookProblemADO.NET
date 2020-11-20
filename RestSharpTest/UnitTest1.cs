@@ -97,5 +97,15 @@ namespace RestSharpTest
             Assert.AreEqual("535678", contact.Zip);
             Console.WriteLine(response.Content);
         }
+        [TestMethod]
+        public void TestMethod4()
+        {
+            RestRequest request = new RestRequest("/contacts/5", Method.DELETE);
+            //Act
+            IRestResponse response = client.Execute(request);
+            //Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Console.WriteLine(response.Content);
+        }
     }
 }
