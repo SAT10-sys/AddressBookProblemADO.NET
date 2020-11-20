@@ -40,5 +40,38 @@ namespace RestSharpTest
                 Console.Write("\n");
             }
         }
+        [TestMethod]
+        public void TestMethod2()
+        {
+            List<Contacts> contactList = new List<Contacts>();
+            contactList.Add(new Contacts { FirstName = "Stephen", LastName = "Smith", PhoneNo = "6323454579", Address = "Manhattan", City = "New York City", State = "NewYork", Zip = "103431", Email = "ssmith@yahoo.com" });
+            contactList.Add(new Contacts { FirstName = "Toby", LastName = "Blair", PhoneNo = "9876546345", Address = "Queens", City = "New York City", State = "New York", Zip = "223400", Email = "tblair@rediffmail.com" });
+            //Iterate the loop for each contact
+            foreach (var contact in contactList)
+            {
+                //Initialize the request for POST to add new contact
+                RestRequest request = new RestRequest("/contacts/list", Method.POST);
+                JsonObject jsonObj = new JsonObject();
+                jsonObj.Add("firstname", contact.FirstName);
+                jsonObj.Add("lastname", contact.LastName);
+                jsonObj.Add("phoneNo", contact.PhoneNo);
+                jsonObj.Add("address", contact.Address);
+                jsonObj.Add("city", contact.City);
+                jsonObj.Add("state", contact.State);
+                jsonObj.Add("zip", contact.Zip);
+                jsonObj.Add("email", contact.Email);
+                //Added parameters to the request object such as the content-type and attaching the jsonObj with the request
+                request.AddParameter("application/json", jsonObj, ParameterType.RequestBody);
+                //Act
+                IRestResponse response = client.Execute(request);
+                //Assert
+                Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+                Contacts addedContact = JsonConvert.DeserializeObject<Contacts>(response.Content);
+                Assert.AreEqual(addedContact.FirstName, contact.FirstName);
+                Assert.AreEqual(addedContact.LastName, contact.LastName);
+                Assert.AreEqual(addedContact.PhoneNo, contact.PhoneNo);
+                Console.WriteLine(response.Content);
+            }
+        }
     }
 }

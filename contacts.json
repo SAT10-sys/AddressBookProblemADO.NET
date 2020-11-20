@@ -44,6 +44,28 @@
 			"zip": "101243",
 			"phoneNo": "7036829555",
 			"email": "hpotter@gmail.com"
-		}
+		},
+{
+      "firstname": "Stephen",
+      "lastname": "Smith",
+      "phoneNo": "6323454579",
+      "address": "Manhattan",
+      "city": "New York City",
+      "state": "NewYork",
+      "zip": "103431",
+      "email": "ssmith@yahoo.com",
+      "id": 5
+    },
+    {
+      "firstname": "Toby",
+      "lastname": "Blair",
+      "phoneNo": "9876546345",
+      "address": "Queens",
+      "city": "New York City",
+      "state": "New York",
+      "zip": "223400",
+      "email": "tblair@rediffmail.com",
+      "id": 6
+    },
 	]
 }
