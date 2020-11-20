@@ -1,0 +1,49 @@
+{
+	"contacts": [
+	    {
+			"id": 1,
+			"firstname": "Tom",
+			"lastname": "Riddle",
+			"address": "Chamber of Secrets",
+			"city": "London",
+			"state": "UK",
+			"zip": "122331",
+			"phoneNo": "8987224534",
+			"email": "triddle@gmail.com"
+		},
+		{
+			"id": 2,
+			"firstname": "Bruce",
+			"lastname": "Wayne",
+			"address": "San Jose",
+			"city": "San Francisco",
+			"state": "California",
+			"zip": "112233",
+			"phoneNo": "9124778434",
+			"email": "bwayne@yahoo.com"
+		},
+		{
+			"id": 3,
+			"firstname": "Bruce",
+			"lastname": "Banner",
+			"address": "DownTown",
+			"city": "Dayton",
+			"state": "Florida",
+			"zip": "451234",
+			"phoneNo": "98034456611",
+			"email": "bbanner@gmail.com"
+		},
+
+		{
+			"id": 4,
+			"firstname": "Harry",
+			"lastname": "Potter",
+			"address": "Privet Drive",
+			"city": "Surrey",
+			"state": "UK",
+			"zip": "101243",
+			"phoneNo": "7036829555",
+			"email": "hpotter@gmail.com"
+		}
+	]
+}
